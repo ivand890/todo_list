@@ -13,9 +13,20 @@ export default class ModelTodo {
     return this.todos;
   }
 
-  addTodo(todo) {
-    const newTodo = { id: this.currentId++, ...todo, completed: false };
+  removeTodo(id) {
+    const index = this.todos.findIndex((todo) => todo.id === id);
+    this.todos.splice(index, 1);
+  }
+
+  addTodo(title, description) {
+    const newTodo = {
+      id: this.currentId++,
+      title: title,
+      description: description,
+      completed: false,
+    };
     this.todos.push(newTodo);
+    console.log(this.todos);
     return { ...newTodo };
   }
 }
