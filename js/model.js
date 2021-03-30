@@ -13,9 +13,20 @@ export default class ModelTodo {
     return this.todos;
   }
 
+  findTodo(id) {
+    return this.todos.findIndex((todo) => todo.id === id);
+  }
+
   removeTodo(id) {
-    const index = this.todos.findIndex((todo) => todo.id === id);
+    const index = this.findTodo(id);
     this.todos.splice(index, 1);
+  }
+
+  toggleCompleted(id) {
+    const index = this.findTodo(id);
+    const todo = this.todos[index];
+    todo.completed = !todo.completed;
+    console.log(this.todos);
   }
 
   addTodo(title, description) {

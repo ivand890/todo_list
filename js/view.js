@@ -7,16 +7,16 @@ export default class ViewTodo {
     this.addTodoForm.onClick((title, description) => {
       this.addTodo(title, description);
     });
-  };
+  }
 
   setModel(model) {
     this.model = model;
-  };
+  }
 
   addTodo(title, description) {
     const todo = this.model.addTodo(title, description);
     this.createRow(todo);
-  };
+  }
 
   addRemoveButton(id) {
     const removeBtn = document.createElement("button");
@@ -27,16 +27,26 @@ export default class ViewTodo {
       document.getElementById(id).remove();
     };
     return removeBtn;
-  };
+  }
+
+  addCheckbox(id, completed) {
+    const checkbox = document.createElement("input");
+    checkbox.classList.add("text-center");
+    checkbox.type = "checkbox";
+    checkbox.checked = completed;
+    checkbox.onclick = () => {
+      this.model.toggleCompleted(id);
+    };
+    return checkbox;
+  }
 
   createRow(todo) {
     const newRow = this.table.insertRow();
-    newRow.setAttribute('id', todo.id);
+    newRow.setAttribute("id", todo.id);
     newRow.innerHTML = `
     <td>${todo.title}</td>
     <td>${todo.description}</td>
     <td class="text-center">
-      <input type="checkbox">
     </td>
     <td class="text-right">
       <button class="btn btn-primary mb-1">
@@ -44,7 +54,9 @@ export default class ViewTodo {
       </button>
     </td>
     `;
+    const cbox = this.addCheckbox(todo.id, todo.completed);
+    newRow.children[2].appendChild(cbox);
     const rmBtn = this.addRemoveButton(todo.id);
     newRow.children[3].appendChild(rmBtn);
-  };
-};
+  }
+}
