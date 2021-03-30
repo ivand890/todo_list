@@ -6,4 +6,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const view = new ViewTodo();
   model.setView(view);
   view.setModel(model);
+
+  view.render();
 });

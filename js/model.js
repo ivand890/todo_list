@@ -1,8 +1,14 @@
 export default class ModelTodo {
   constructor() {
+    this.PREFIX = "TODO_JS";
     this.view = null;
-    this.todos = [];
-    this.currentId = 0;
+    this.todos = JSON.parse(localStorage.getItem(`${this.PREFIX}_save_data`));
+    if (!this.todos || this.todos.length === 0) {
+      this.todos = [];
+      this.currentId = 0;
+    } else {
+      this.currentId = this.todos[this.todos.length - 1].id + 1;
+    }
   }
 
   setView(view) {
@@ -13,6 +19,13 @@ export default class ModelTodo {
     return this.todos;
   }
 
+  saveLocal() {
+    localStorage.setItem(
+      `${this.PREFIX}_save_data`,
+      JSON.stringify(this.todos)
+    );
+  }
+
   findTodo(id) {
     return this.todos.findIndex((todo) => todo.id === id);
   }
@@ -20,13 +33,14 @@ export default class ModelTodo {
   removeTodo(id) {
     const index = this.findTodo(id);
     this.todos.splice(index, 1);
+    this.saveLocal();
   }
 
   toggleCompleted(id) {
     const index = this.findTodo(id);
     const todo = this.todos[index];
     todo.completed = !todo.completed;
-    console.log(this.todos);
+    this.saveLocal();
   }
 
   addTodo(title, description) {
@@ -37,7 +51,7 @@ export default class ModelTodo {
       completed: false,
     };
     this.todos.push(newTodo);
-    console.log(this.todos);
+    this.saveLocal();
     return { ...newTodo };
   }
 }
