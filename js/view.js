@@ -13,9 +13,11 @@ export default class ViewTodo {
     this.model = model;
   }
 
-  render(){
+  render() {
     const todos = this.model.getTodos();
-    todos.forEach((todo) => {this.createRow(todo)})
+    todos.forEach((todo) => {
+      this.createRow(todo);
+    });
   }
   addTodo(title, description) {
     const todo = this.model.addTodo(title, description);
