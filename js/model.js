@@ -43,6 +43,12 @@ export default class ModelTodo {
     this.saveLocal();
   }
 
+  editTodo(id, values) {
+    const index = this.findTodo(id);
+    Object.assign(this.todos[index], values)
+    this.saveLocal();
+  }
+
   addTodo(title, description) {
     const newTodo = {
       id: this.currentId++,
