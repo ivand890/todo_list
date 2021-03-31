@@ -16,7 +16,7 @@ export default class ModelTodo {
   }
 
   getTodos() {
-    return this.todos;
+    return this.todos.map((todo) => ({...todo}));
   }
 
   saveLocal() {

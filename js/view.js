@@ -38,37 +38,8 @@ export default class ViewTodo {
   }
 
   addRemoveButton(id) {
-    const removeBtn = document.createElement("button");
-    removeBtn.classList.add("btn", "btn-danger", "mb-1", "ml-1");
-    removeBtn.innerHTML = "<i class='fa fa-trash'></i>";
-    removeBtn.onclick = () => {
-      this.model.removeTodo(id);
-      document.getElementById(id).remove();
-    };
+
     return removeBtn;
-  }
-
-  addEditButton(todo) {
-    const editBtn = document.createElement("button");
-    editBtn.classList.add("btn", "btn-primary", "mb-1");
-    editBtn.innerHTML = "<i class='fa fa-pencil'></i>";
-    editBtn.setAttribute("data-toggle", "modal");
-    editBtn.setAttribute("data-target", "#modal");
-    editBtn.onclick = () => {
-      this.modal.setValues(todo);
-    };
-    return editBtn;
-  }
-
-  addCheckbox(todo) {
-    const checkbox = document.createElement("input");
-    checkbox.classList.add("text-center");
-    checkbox.type = "checkbox";
-    checkbox.checked = todo.completed;
-    checkbox.onclick = () => {
-      this.model.toggleCompleted(todo.id);
-    };
-    return checkbox;
   }
 
   createRow(todo) {
@@ -80,11 +51,38 @@ export default class ViewTodo {
     <td class="text-center"></td>
     <td class="text-right"></td>
     `;
-    const cbox = this.addCheckbox(todo);
+
+    const cbox = document.createElement("input");
+    cbox.classList.add("text-center");
+    cbox.type = "checkbox";
+    cbox.checked = todo.completed;
+    cbox.onclick = () => {
+      this.model.toggleCompleted(todo.id);
+    };
     newRow.children[2].appendChild(cbox);
-    const eBtn = this.addEditButton(todo);
+
+    const eBtn = document.createElement("button");
+    eBtn.classList.add("btn", "btn-primary", "mb-1");
+    eBtn.innerHTML = "<i class='fa fa-pencil'></i>";
+    eBtn.setAttribute("data-toggle", "modal");
+    eBtn.setAttribute("data-target", "#modal");
+    eBtn.onclick = () => {
+      this.modal.setValues({
+        id: todo.id,
+        title: newRow.children[0].innerHTML,
+        description: newRow.children[1].innerHTML,
+        completed: newRow.children[2].children[0].checked,
+      });
+    };
     newRow.children[3].appendChild(eBtn);
-    const rmBtn = this.addRemoveButton(todo.id);
+
+    const rmBtn = document.createElement("button");
+    rmBtn.classList.add("btn", "btn-danger", "mb-1", "ml-1");
+    rmBtn.innerHTML = "<i class='fa fa-trash'></i>";
+    rmBtn.onclick = () => {
+      this.model.removeTodo(todo.id);
+      document.getElementById(todo.id).remove();
+    };
     newRow.children[3].appendChild(rmBtn);
   }
 }
