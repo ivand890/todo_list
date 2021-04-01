@@ -9,7 +9,7 @@ export default class Modal {
     this.todo = null;
   }
 
-  setValues(todo){
+  setValues(todo) {
     this.todo = todo;
     this.title.value = todo.title;
     this.description.value = todo.description;
@@ -22,12 +22,12 @@ export default class Modal {
         this.alert.show("Title and Description are required.");
         return;
       }
-      $('#modal').modal('toggle')
+      $("#modal").modal("toggle");
       callback(this.todo.id, {
         title: this.title.value,
         description: this.description.value,
-        completed: this.completed.checked
-      })
-    }
+        completed: this.completed.checked,
+      });
+    };
   }
 }

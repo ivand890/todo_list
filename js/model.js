@@ -16,7 +16,7 @@ export default class ModelTodo {
   }
 
   getTodos() {
-    return this.todos.map((todo) => ({...todo}));
+    return this.todos.map((todo) => ({ ...todo }));
   }
 
   saveLocal() {
@@ -45,7 +45,7 @@ export default class ModelTodo {
 
   editTodo(id, values) {
     const index = this.findTodo(id);
-    Object.assign(this.todos[index], values)
+    Object.assign(this.todos[index], values);
     this.saveLocal();
   }
 

@@ -1,7 +1,7 @@
 export default class Filters {
   constructor() {
-    this.form = document.getElementById('filters');
-    this.formBtn = document.getElementById('search');
+    this.form = document.getElementById("filters");
+    this.formBtn = document.getElementById("search");
   }
 
   onClick(callback) {
@@ -9,9 +9,9 @@ export default class Filters {
       e.preventDefault();
       const data = new FormData(this.form);
       callback({
-        type: data.get('type'),
-        words: data.get('words'),
-      })
-    }
+        type: data.get("type"),
+        words: data.get("words"),
+      });
+    };
   }
 }
