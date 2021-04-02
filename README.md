@@ -1,2 +1,2 @@
 # todo_list
-Simple ToDo list with JS an Node
+Simple ToDo list with JS vanilla.
